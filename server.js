@@ -31,9 +31,8 @@ app.get("/api/:request", (req, res) => {
     unix = (new Date(param).getTime()/1000)
   }
 
-  res.json({'unix': unix, 'utc': date})
+  res.json({unix: unix, utc: date})
 })
-
 
 
 // listen for requests :)
