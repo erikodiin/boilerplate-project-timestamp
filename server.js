@@ -1,6 +1,7 @@
 // index.js
 // where your node app starts
 
+
 // init project
 var express = require('express');
 var app = express();
@@ -18,15 +19,30 @@ app.get("/", function (req, res) {
   res.sendFile(__dirname + '/views/index.html');
 });
 
-
-// your first API endpoint... 
-app.get("/api/hello", function (req, res) {
-  res.json({greeting: 'hello API'});
-});
+app.get("/api/:request", (req, res) => {
+  const param = req.params.request
+  let unix = param
+  console.log(validDate(param), param.toString())
+  if (validDate(req.params.request.toString())){
+    unix = new Date(param).getTime()
+    console.log(`unix: ${unix}`)
+  }
+  response = {
+    "unix": unix, 
+    "utc": new Date(unix).toLocaleDateString('en-GB', {dateStyle: 'long'})
+  }
+  console.log(response)
+  res.json()
+})
 
 
 
 // listen for requests :)
-var listener = app.listen(process.env.PORT, function () {
+var listener = app.listen(3000, function () {
   console.log('Your app is listening on port ' + listener.address().port);
 });
+
+
+function validDate(input) {
+  return ((new Date(input)).getTime() > 0) 
+}
