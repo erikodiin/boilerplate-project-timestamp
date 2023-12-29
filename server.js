@@ -1,4 +1,4 @@
-// index.js
+// sever.js
 // where your node app starts
 
 
@@ -22,7 +22,7 @@ app.get("/", function (req, res) {
 app.get("/api/:request", (req, res) => {
   const param = req.params.request
   let unix = param
-  console.log(validDate(param), param.toString())
+  console.log(new Date(param))
   if (validDate(req.params.request.toString())){
     unix = new Date(param).getTime()
     console.log(`unix: ${unix}`)
@@ -31,8 +31,7 @@ app.get("/api/:request", (req, res) => {
     "unix": unix, 
     "utc": new Date(unix).toLocaleDateString('en-GB', {dateStyle: 'long'})
   }
-  console.log(response)
-  res.json()
+  res.json(response)
 })
 
 
