@@ -21,12 +21,17 @@ app.get("/", function (req, res) {
 
 app.get("/api/:request", (req, res) => {
   const param = req.params.request
-  let date = new Date(param)
-    .toLocaleString("en-GB", {
-      timeZone: 'GMT', 
-      dateStyle: 'full',
-      timeStyle: 'long'})
-  console.log(date)
+  let unix
+  let date = new Date(param).toUTCString()
+
+  if (date == "Invalid Date") {
+    unix = param
+    date = new Date(parseInt(param)).toUTCString()
+  } else {
+    unix = (new Date(param).getTime()/1000)
+  }
+
+  res.json({'unix': unix, 'utc': date})
 })
 
 
