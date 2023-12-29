@@ -22,14 +22,17 @@ app.get("/", function (req, res) {
 app.get("/api/:request", (req, res) => {
   const param = req.params.request
   let unix = param
-  console.log(new Date(param))
-  if (validDate(req.params.request.toString())){
+  let date = param
+  console.log(`unix: ${unix} utc: ${date}`)
+  if (validDate(param.toString())){
     unix = new Date(param).getTime()
     console.log(`unix: ${unix}`)
   }
+  console.log(`unix: ${unix} utc: ${date}`)
+
   response = {
     "unix": unix, 
-    "utc": new Date(unix).toLocaleDateString('en-GB', {dateStyle: 'long'})
+    "utc": Date(unix)
   }
   res.json(response)
 })
