@@ -19,8 +19,9 @@ app.get("/", function (req, res) {
   res.sendFile(__dirname + '/views/index.html');
 });
 
-app.get("/api/:request", (req, res) => {
+app.get("/api/:request", (req, res) => { 
   const param = req.params.request
+  
   let unix
   let date = new Date(param).toUTCString()
 
@@ -29,9 +30,13 @@ app.get("/api/:request", (req, res) => {
     date = new Date(parseInt(param)).toUTCString()
   } else {
     unix = (new Date(param).getTime())
-  }
+  } 
 
   res.json({unix: unix, utc: date})
+})
+
+app.get("/api", (req, res) => { 
+  res.json({error: "Invalid date"})
 })
 
 
