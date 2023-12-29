@@ -28,7 +28,7 @@ app.get("/api/:request", (req, res) => {
     unix = param
     date = new Date(parseInt(param)).toUTCString()
   } else {
-    unix = (new Date(param).getTime()/1000)
+    unix = (new Date(param).getTime())
   }
 
   res.json({unix: unix, utc: date})
